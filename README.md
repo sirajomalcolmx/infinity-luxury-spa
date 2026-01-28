@@ -13,8 +13,7 @@ A luxury spa & aesthetics website built using:
 - Booking wizard
 - WhatsApp booking integration
 
-## Live Preview
-Enable GitHub Pages to see the site live.
 
 ## Author
-Design & Development by Sirajo
+Design & Development by Sirajo x
++2348140905040

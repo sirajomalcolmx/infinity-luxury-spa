@@ -1,0 +1,560 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Luxury Spa & Aesthetics</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#B5A52E',
+                        'gold-light': '#D6C75A',
+                        'gold-dark': '#9E8F28',
+                        cream: '#F5F1D8',
+                        olive: '#7A6F1F',
+                        black: '#1C1C1C'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in forwards',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #B5A52E, #9E8F28);
+            color: #FFFFFF;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(122, 111, 31, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(122, 111, 31, 0.45);
+            background: linear-gradient(135deg, #CDBD4A, #A9992D);
+        }
+        .btn-primary:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .btn-secondary {
+            background: #F5F1D8;
+            color: #7A6F1F;
+            padding: 14px 26px;
+            border-radius: 14px;
+            font-weight: 600;
+            border: 2px solid #B5A52E;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: #B5A52E;
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+        .btn-secondary:active {
+            transform: scale(0.97);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: #7A6F1F;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .btn-ghost:hover {
+            background: rgba(181, 165, 46, 0.12);
+            transform: translateX(3px);
+        }
+
+        /* Scrollbar Hide */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-black bg-cream selection:bg-gold-light selection:text-black">
+
+    <header id="main-header" class="fixed w-full z-50 transition-all duration-300 py-6 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+            <div class="cursor-pointer z-50" onclick="navigateTo('home')">
+                <h1 id="brand-logo" class="font-serif text-lg md:text-2xl tracking-wide font-bold text-cream transition-colors duration-300">
+                    INFINITY LUXURY SPA<span class="text-gold-light">.</span>
+                </h1>
+            </div>
+
+            <nav id="desktop-nav" class="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium text-cream transition-colors duration-300">
+                <button onclick="navigateTo('home')" class="hover:text-gold-light transition relative group">Home</button>
+                <button onclick="navigateTo('pricing')" class="hover:text-gold-light transition relative group">Services</button>
+                <button onclick="navigateTo('pricing')" class="hover:text-gold-light transition relative group">Pricing</button>
+                <button onclick="navigateTo('bridal')" class="hover:text-gold-light transition relative group">Bridal</button>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button onclick="navigateTo('booking')" id="header-btn" class="hidden md:block px-6 py-2 border rounded-full text-xs uppercase tracking-widest transition duration-300 border-cream text-cream hover:bg-cream hover:text-black">
+                    Book Now
+                </button>
+                
+                <button onclick="toggleMenu()" id="menu-toggle" class="md:hidden z-50 text-cream">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-cream z-40 hidden flex-col items-center justify-center space-y-8 animate-fade-in text-black">
+            <button onclick="navigateTo('home')" class="text-3xl font-serif capitalize hover:text-olive transition">Home</button>
+            <button onclick="navigateTo('pricing')" class="text-3xl font-serif capitalize hover:text-olive transition">Services</button>
+            <button onclick="navigateTo('pricing')" class="text-3xl font-serif capitalize hover:text-olive transition">Pricing</button>
+            <button onclick="navigateTo('bridal')" class="text-3xl font-serif capitalize hover:text-olive transition">Bridal Journey</button>
+            <button onclick="navigateTo('booking')" class="text-3xl font-serif capitalize hover:text-olive transition">Book Now</button>
+        </div>
+    </header>
+
+    <main id="app-content">
+        
+        <div id="view-home" class="page-view">
+            <section class="relative h-screen flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 z-0">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Spa" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
+                    <div class="absolute inset-0 bg-gold/30 mix-blend-overlay"></div>
+                </div>
+                <div class="relative z-10 text-center text-cream px-4 max-w-4xl mx-auto pt-10 animate-fade-in-up">
+                    <h1 class="text-5xl md:text-7xl font-serif mb-6 leading-tight drop-shadow-lg">
+                        Your Beauty, Confidence <br/> & Wellness Destination
+                    </h1>
+                    <h2 class="text-xl md:text-2xl font-medium text-cream mb-6 font-serif drop-shadow-md">
+                        Luxury Spa & Aesthetic Treatments Rooted in Heritage, Science & Care.
+                    </h2>
+                    <p class="text-base md:text-lg font-light text-cream mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+                        At Infinity Luxury Spa & Aesthetics, we deliver premium beauty, wellness, and aesthetic services designed to restore confidence, enhance natural beauty, and promote total well-being.
+                    </p>
+                    <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                        <button onclick="navigateTo('booking')" class="btn-primary">Book A Session</button>
+                        <button onclick="navigateTo('pricing')" class="btn-secondary">View Price List</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-olive text-cream py-10">
+                <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-6 md:gap-12" id="trust-badges">
+                    </div>
+            </section>
+
+            <section class="py-24 bg-gold text-black">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="text-center mb-12">
+                        <h3 class="uppercase tracking-widest text-sm font-semibold mb-3 text-black">Curated For You</h3>
+                        <h2 class="text-3xl md:text-5xl font-serif">Explore Our Signature Services</h2>
+                        <div class="w-24 h-1 mx-auto mt-6 bg-black"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div onclick="navigateTo('pricing')" class="group relative h-80 overflow-hidden cursor-pointer rounded-[20px] shadow-xl bg-cream transform transition duration-500 hover:shadow-2xl hover:-translate-y-1">
+                            <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                            <div class="absolute bottom-0 left-0 w-full p-6">
+                                <h3 class="text-xl font-serif text-cream mb-2">Skin & Aesthetics</h3>
+                                <span class="text-sm uppercase tracking-wider text-gold-light flex items-center gap-2">View Menu <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                            </div>
+                        </div>
+
+                        <div onclick="navigateTo('pricing')" class="group relative h-80 overflow-hidden cursor-pointer rounded-[20px] shadow-xl bg-cream transform transition duration-500 hover:shadow-2xl hover:-translate-y-1">
+                            <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 opacity-90">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                            <div class="absolute bottom-0 left-0 w-full p-6">
+                                <h3 class="text-xl font-serif text-cream mb-2">Massage Therapy</h3>
+                                <span class="text-sm uppercase tracking-wider text-gold-light flex items-center gap-2">View Menu <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center justify-center p-8 bg-cream border-2 border-gold/30 text-center h-80 shadow-xl rounded-[20px]">
+                            <h3 class="text-xl font-serif text-black mb-4">Discover More</h3>
+                            <p class="text-black/70 mb-6 text-sm">Explore our full range of treatments designed for your wellness.</p>
+                            <button onclick="navigateTo('pricing')" class="btn-primary">Explore Services</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="view-pricing" class="page-view hidden">
+            <div class="pt-24 min-h-screen bg-cream pb-20">
+                <div class="bg-gold text-black py-20 mb-12 shadow-lg">
+                    <div class="max-w-4xl mx-auto px-4 text-center">
+                        <h1 class="text-4xl md:text-5xl font-serif mb-4">Transparent Pricing. Premium Value.</h1>
+                        <p class="text-black max-w-2xl mx-auto text-lg">Prices vary based on service type. Consultation fee: ₦20,000.</p>
+                    </div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row gap-12">
+                    <div class="md:w-1/4">
+                        <div class="bg-white p-6 shadow-xl rounded-[20px] sticky top-28">
+                            <h3 class="font-serif text-xl mb-6 border-b border-cream pb-2 text-olive">Services Menu</h3>
+                            <ul class="space-y-2" id="service-cats">
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="md:w-3/4">
+                        <div class="bg-white p-8 shadow-sm border border-cream rounded-[20px]">
+                            <h2 class="text-3xl font-serif text-olive mb-2" id="active-cat-title">Skin & Aesthetics</h2>
+                            <p class="text-black/70 mb-8 italic border-l-4 border-gold-light pl-4" id="active-cat-desc">Advanced solutions designed to enhance and restore your skin.</p>
+                            <div class="space-y-4" id="service-list">
+                                </div>
+                            <div class="mt-12 text-center">
+                                <button onclick="navigateTo('booking')" class="btn-primary text-sm">Book Appointment</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-bridal" class="page-view hidden">
+            <div class="pt-24 min-h-screen bg-cream">
+                <div class="relative h-[60vh] flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1600618528240-fb9fc964b853?auto=format&fit=crop&w=1920&q=80" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-cream/80 mix-blend-hard-light"></div>
+                    <div class="relative z-10 text-center px-4 max-w-3xl">
+                        <h1 class="text-5xl md:text-7xl font-serif text-black mb-4">Your Bridal Glow Journey</h1>
+                        <p class="text-xl text-black/80 font-light">90-Day Countdown to Perfection</p>
+                    </div>
+                </div>
+                <div class="max-w-5xl mx-auto px-4 py-20 text-center">
+                    <h3 class="text-3xl font-serif mb-4">Start Your Bridal Journey</h3>
+                    <p class="mb-8 text-black">Contact us to schedule your consultation and build your custom package.</p>
+                    <button onclick="navigateTo('booking')" class="btn-primary">Book Consultation</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-booking" class="page-view hidden">
+            <div class="pt-28 min-h-screen bg-cream pb-20 px-4">
+                <div class="max-w-2xl mx-auto bg-white shadow-2xl overflow-hidden rounded-[20px]">
+                    <div class="bg-gold p-6 text-black flex justify-between items-center shadow-md">
+                        <div>
+                            <h2 class="text-2xl font-serif">Secure Your Session</h2>
+                            <p class="text-black text-sm opacity-80">Step <span id="step-count">1</span> of 3</p>
+                        </div>
+                        <i data-lucide="calendar" class="text-white w-6 h-6"></i>
+                    </div>
+
+                    <div class="p-8 min-h-[400px]">
+                        <div id="step-1" class="step-content animate-fade-in">
+                            <h3 class="text-xl font-bold mb-6 text-black">What treatment are you interested in?</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="booking-services">
+                                </div>
+                            <div class="mt-8 pt-6 border-t border-cream flex justify-center">
+                                <button onclick="selectService('General Consultation')" class="btn-ghost">Book a General Consultation (₦20,000)</button>
+                            </div>
+                        </div>
+
+                        <div id="step-2" class="step-content hidden animate-fade-in">
+                            <h3 class="text-xl font-bold mb-6 text-black">Tell us a bit more</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-bold text-black mb-2">Primary Concern</label>
+                                    <textarea id="input-concern" class="w-full p-4 border border-gray-200 rounded-xl focus:border-gold outline-none transition shadow-sm" rows="3" placeholder="e.g., Hyperpigmentation, Bridal Prep..."></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-bold text-black mb-2">Preferred Date</label>
+                                    <input id="input-date" type="date" class="w-full p-4 border border-gray-200 rounded-xl focus:border-gold outline-none transition shadow-sm">
+                                </div>
+                            </div>
+                            <div class="mt-8 flex justify-between items-center">
+                                <button onclick="setStep(1)" class="btn-ghost">Back</button>
+                                <button onclick="setStep(3)" class="btn-primary">Next Step</button>
+                            </div>
+                        </div>
+
+                        <div id="step-3" class="step-content hidden animate-fade-in">
+                            <h3 class="text-xl font-bold mb-6 text-black">Final Details</h3>
+                            <div class="mb-6">
+                                <label class="block text-sm font-bold text-black mb-2">Your Name</label>
+                                <input id="input-name" type="text" class="w-full p-4 border border-gray-200 rounded-xl focus:border-gold outline-none transition shadow-sm" placeholder="Full Name">
+                            </div>
+                            <div class="bg-cream p-4 mb-6 rounded-xl border border-gold-light/20 text-sm text-black">
+                                <p><strong>Note:</strong> We will redirect you to WhatsApp to confirm your slot.</p>
+                            </div>
+                            <button onclick="finishBooking()" class="btn-primary w-full flex justify-center items-center gap-2">
+                                <i data-lucide="phone" class="w-4 h-4"></i> Confirm via WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-gold text-black py-16 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-sm">
+            <div>
+                <h3 class="text-black text-2xl font-serif mb-6">INFINITY <span class="text-cream">.</span></h3>
+                <p class="mb-4 font-serif text-lg text-black">Where Endless Beauty Begins.</p>
+                <div class="flex gap-4">
+                    <a href="https://instagram.com/infinityluxuryspa" target="_blank" class="w-10 h-10 rounded-full bg-black flex items-center justify-center hover:bg-cream hover:text-black text-cream transition transform hover:scale-110 cursor-pointer shadow-lg"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100063860490951" target="_blank" class="w-10 h-10 rounded-full bg-black flex items-center justify-center hover:bg-cream hover:text-black text-cream transition transform hover:scale-110 cursor-pointer shadow-lg"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-black uppercase tracking-widest font-semibold mb-6">Contact</h4>
+                <p class="mb-2">Shop B14, First Floor Poly Plaza</p>
+                <p class="mb-4">Adetokunbo Ademola Crescent, Wuse 2, Abuja</p>
+                <p class="flex items-center gap-2 mb-2"><i data-lucide="phone" class="w-4 h-4"></i> 0806 914 6781</p>
+                <p class="flex items-center gap-2 mb-2"><i data-lucide="mail" class="w-4 h-4"></i> infinityluxuryspaabuja@gmail.com</p>
+            </div>
+            <div>
+                <h4 class="text-black uppercase tracking-widest font-semibold mb-6">Quick Actions</h4>
+                <ul class="space-y-3">
+                    <li><button onclick="navigateTo('pricing')" class="hover:text-cream transition">View Price List</button></li>
+                    <li><button onclick="navigateTo('booking')" class="hover:text-cream transition">Book Consultation</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-black/20 text-center flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <p>&copy; 2026 Infinity Luxury Spa. All Rights Reserved.</p>
+                <p class="text-xs text-black/80 mt-1">Design by Sirajo x 08140905040</p>
+            </div>
+            <p class="italic text-black font-serif">"Every Woman Is A Queen"</p>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/2348069146781" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gold flex items-center justify-center text-white shadow-[0_10px_25px_rgba(122,111,31,0.45)] z-50 transition-transform duration-300 hover:scale-105 animate-bounce-slow">
+        <i data-lucide="phone" class="w-6 h-6 fill-white"></i>
+    </a>
+
+    <script>
+        // --- DATA ---
+        const SERVICES = {
+            "Skin & Aesthetics": {
+                desc: "Advanced solutions designed to enhance and restore your skin.",
+                items: [
+                    { name: "Skin Tag Removal", price: "Consultation Required" },
+                    { name: "Anti-Aging Facial", price: "From ₦45,000" },
+                    { name: "Acne Treatment", price: "From ₦35,000" },
+                ]
+            },
+            "Body Treatments": {
+                desc: "Traditional and modern body rituals.",
+                items: [
+                    { name: "Moroccan Bath", price: "₦40,000" },
+                    { name: "Sudanese Hammam", price: "₦45,000" },
+                    { name: "Body Scrub", price: "₦30,000" },
+                ]
+            },
+            "Massage Therapy": {
+                desc: "Relax, heal, and restore balance.",
+                items: [
+                    { name: "Deep Tissue Massage", price: "₦30,000" },
+                    { name: "Swedish Massage", price: "₦25,000" },
+                    { name: "Hot Stone", price: "₦35,000" },
+                ]
+            },
+            "Waxing": {
+                desc: "Professional, hygienic waxing.",
+                items: [
+                    { name: "Full Body Wax", price: "₦35,000" },
+                    { name: "Brazilian/Bikini", price: "₦15,000" },
+                ]
+            }
+        };
+
+        const TRUST_BADGES = ["Certified Pros", "Hygienic", "Discreet", "Luxury"];
+
+        // --- STATE ---
+        let currentView = 'home';
+        let bookingData = { service: '', date: '', concern: '', name: '' };
+
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderTrustBadges();
+            renderPricing('Skin & Aesthetics');
+            renderPricingCategories();
+            renderBookingOptions();
+            
+            // Scroll Listener
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                const logo = document.getElementById('brand-logo');
+                const nav = document.getElementById('desktop-nav');
+                const btn = document.getElementById('header-btn');
+                const toggle = document.getElementById('menu-toggle');
+
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-cream/95', 'shadow-lg', 'backdrop-blur-md', 'py-3');
+                    header.classList.remove('bg-transparent', 'py-6');
+                    
+                    // Dark Text Mode
+                    logo.classList.replace('text-cream', 'text-black');
+                    nav.classList.replace('text-cream', 'text-black');
+                    toggle.classList.replace('text-cream', 'text-black');
+                    
+                    btn.classList.replace('border-cream', 'border-black');
+                    btn.classList.replace('text-cream', 'text-black');
+                    btn.classList.replace('hover:bg-cream', 'hover:bg-black');
+                    btn.classList.replace('hover:text-black', 'hover:text-cream');
+                } else {
+                    if (currentView === 'home') {
+                        header.classList.add('bg-transparent', 'py-6');
+                        header.classList.remove('bg-cream/95', 'shadow-lg', 'backdrop-blur-md', 'py-3');
+                        
+                        // Light Text Mode
+                        logo.classList.replace('text-black', 'text-cream');
+                        nav.classList.replace('text-black', 'text-cream');
+                        toggle.classList.replace('text-black', 'text-cream');
+
+                        btn.classList.replace('border-black', 'border-cream');
+                        btn.classList.replace('text-black', 'text-cream');
+                        btn.classList.replace('hover:bg-black', 'hover:bg-cream');
+                        btn.classList.replace('hover:text-cream', 'hover:text-black');
+                    }
+                }
+            });
+        });
+
+        // --- NAVIGATION ---
+        function navigateTo(viewId) {
+            currentView = viewId;
+            document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`view-${viewId}`).classList.remove('hidden');
+            document.getElementById('mobile-menu').classList.add('hidden'); // Close menu
+            window.scrollTo(0, 0);
+
+            // Force Header Style update based on view
+            const header = document.getElementById('main-header');
+            if (viewId !== 'home') {
+                header.classList.add('bg-cream/95', 'shadow-lg', 'py-3');
+                document.getElementById('brand-logo').classList.replace('text-cream', 'text-black');
+                document.getElementById('desktop-nav').classList.replace('text-cream', 'text-black');
+                document.getElementById('menu-toggle').classList.replace('text-cream', 'text-black');
+                // update button style manually if needed
+            }
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-toggle').firstElementChild;
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
+
+        // --- RENDERING ---
+        function renderTrustBadges() {
+            const container = document.getElementById('trust-badges');
+            TRUST_BADGES.forEach(badge => {
+                const div = document.createElement('div');
+                div.className = "flex items-center gap-2";
+                div.innerHTML = `<div class="bg-gold-light rounded-full p-1"><i data-lucide="check" class="w-3 h-3 text-black"></i></div><span class="text-sm uppercase tracking-wider font-medium">${badge}</span>`;
+                container.appendChild(div);
+            });
+        }
+
+        function renderPricingCategories() {
+            const list = document.getElementById('service-cats');
+            Object.keys(SERVICES).forEach(cat => {
+                const li = document.createElement('li');
+                li.innerHTML = `<button onclick="renderPricing('${cat}')" class="w-full text-left px-4 py-3 text-sm uppercase tracking-wider transition rounded-lg hover:bg-cream hover:text-black text-black/60">${cat}</button>`;
+                list.appendChild(li);
+            });
+        }
+
+        function renderPricing(category) {
+            document.getElementById('active-cat-title').innerText = category;
+            document.getElementById('active-cat-desc').innerText = SERVICES[category].desc;
+            const container = document.getElementById('service-list');
+            container.innerHTML = '';
+            SERVICES[category].items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center border-b border-cream pb-4 px-4";
+                div.innerHTML = `<div><h4 class="font-medium text-lg text-black">${item.name}</h4></div><div class="text-right"><span class="font-bold text-olive block">${item.price}</span></div>`;
+                container.appendChild(div);
+            });
+        }
+
+        function renderBookingOptions() {
+            const container = document.getElementById('booking-services');
+            Object.keys(SERVICES).forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = "p-5 border-2 border-cream rounded-xl hover:border-gold hover:bg-cream/30 text-left transition duration-300 group";
+                btn.onclick = () => selectService(cat);
+                btn.innerHTML = `<span class="font-bold text-black block mb-1 group-hover:text-olive transition">${cat}</span><span class="text-xs text-black/60">Select Category</span>`;
+                container.appendChild(btn);
+            });
+        }
+
+        // --- BOOKING LOGIC ---
+        function selectService(serviceName) {
+            bookingData.service = serviceName;
+            setStep(2);
+        }
+
+        function setStep(stepNum) {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`step-${stepNum}`).classList.remove('hidden');
+            document.getElementById('step-count').innerText = stepNum;
+        }
+
+        function finishBooking() {
+            bookingData.concern = document.getElementById('input-concern').value;
+            bookingData.date = document.getElementById('input-date').value;
+            bookingData.name = document.getElementById('input-name').value;
+            
+            const text = `Hello Infinity Spa, I would like to book an appointment.%0A%0AName: ${bookingData.name}%0AService: ${bookingData.service}%0ADate: ${bookingData.date}%0AConecrn: ${bookingData.concern}`;
+            window.open(`https://wa.me/2348069146781?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
